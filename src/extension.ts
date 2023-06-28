@@ -1,26 +1,41 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import { ListOpenFilesProvider } from './provider';
+import {
+  LIST_OPEN_FILES_SCHEME,
+  LIST_OPEN_FILE_PATHS,
+  LIST_OPEN_FILE_ABSPATHS,
+  LIST_OPEN_FILE_NAMES,
+  ALL_PROVIDED_DOCUMENTS,
+} from './constants';
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
+  const documentProvider = new ListOpenFilesProvider();
+  function updateProvidedDocuments() {
+    for (const path of ALL_PROVIDED_DOCUMENTS) {
+      documentProvider.fireChangeEvent(vscode.Uri.from({ scheme: LIST_OPEN_FILES_SCHEME, path }));
+    }
+  }
+  async function openProvidedDocument(path: string): Promise<vscode.TextEditor> {
+    const uri = vscode.Uri.from({ scheme: LIST_OPEN_FILES_SCHEME, path });
+    documentProvider.fireChangeEvent(uri);
+    const document = await vscode.workspace.openTextDocument(uri);
+    return vscode.window.showTextDocument(document);
+  }
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "list-open-files" is now active!');
-
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('list-open-files.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from List Open Files!');
-	});
-
-	context.subscriptions.push(disposable);
+  context.subscriptions.push(
+    vscode.workspace.registerTextDocumentContentProvider(LIST_OPEN_FILES_SCHEME, documentProvider),
+    vscode.workspace.onDidOpenTextDocument(updateProvidedDocuments),
+    vscode.workspace.onDidCloseTextDocument(updateProvidedDocuments),
+    vscode.commands.registerCommand('list-open-files.list-open-file-paths', () => {
+      openProvidedDocument(LIST_OPEN_FILE_PATHS);
+    }),
+    vscode.commands.registerCommand('list-open-files.list-open-file-abspaths', () => {
+      openProvidedDocument(LIST_OPEN_FILE_ABSPATHS);
+    }),
+    vscode.commands.registerCommand('list-open-files.list-open-file-names', () => {
+      openProvidedDocument(LIST_OPEN_FILE_NAMES);
+    }),
+  );
 }
 
-// This method is called when your extension is deactivated
 export function deactivate() {}
