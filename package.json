@@ -1,6 +1,6 @@
 {
   "name": "list-open-files",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "jhq",
   "publisher": "iqbis.de",
   "engines": {
@@ -54,8 +54,9 @@
     "@vscode/test-electron": "^2.3.2"
   },
   "scripts": {
-    "vscode:prepublish": "npm run compile",
+    "vscode:prepublish": "npm run clean ;npm run compile",
     "build": "vsce package",
+    "clean": "rm -r out",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
