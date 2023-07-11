@@ -1,41 +1,45 @@
 {
   "name": "list-open-files",
-  "displayName": "List Open Files",
-  "description": "Listing the currently opened file's paths.",
   "version": "0.0.1",
+  "author": "jhq",
+  "publisher": "iqbis.de",
   "engines": {
     "vscode": "^1.79.0"
   },
+  "license": "BSD-3-Clause",
+  "displayName": "List Open Files",
+  "description": "Listing the currently opened file's paths.",
   "categories": [
-    "Other"
+    "Extension Packs"
   ],
-  "activationEvents": [],
+  "keywords": [
+    "vscode",
+    "extension",
+    "utility",
+    "tool"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "list-open-files.list-open-file-paths",
-        "title": "List Open File Paths"
+        "command": "list-open-files.list-open-file-abspaths",
+        "title": "ListOpen: List Open File Paths (Absolute)"
       },
       {
-        "command": "list-open-files.list-open-file-abspaths",
-        "title": "List Open File Absolute Paths"
+        "command": "list-open-files.list-open-file-relpaths",
+        "title": "ListOpen: List Open File Paths (Relative)"
       },
       {
         "command": "list-open-files.list-open-file-names",
-        "title": "List Open File Names"
+        "title": "ListOpen: List Open File Names"
+      },
+      {
+        "command": "list-open-files.reopen-files",
+        "title": "ListOpen: Reopen Files"
       }
     ]
   },
-  "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "build": "vsce package",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
-  },
+  "activationEvents": [],
   "devDependencies": {
     "@types/vscode": "^1.79.0",
     "@types/glob": "^8.1.0",
@@ -49,20 +53,21 @@
     "typescript": "^5.1.3",
     "@vscode/test-electron": "^2.3.2"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jhe-iqbis/vscode-listopen.git"
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "build": "vsce package",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
   },
-  "keywords": [
-    "vscode",
-    "extension",
-    "utility",
-    "tool"
-  ],
-  "author": "jhe",
-  "license": "BSD-3-Clause",
   "bugs": {
     "url": "https://github.com/jhe-iqbis/vscode-listopen/issues"
   },
-  "homepage": "https://github.com/jhe-iqbis/vscode-listopen#readme"
+  "homepage": "https://github.com/jhe-iqbis/vscode-listopen#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jhe-iqbis/vscode-listopen.git"
+  }
 }
