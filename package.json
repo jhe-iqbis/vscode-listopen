@@ -1,7 +1,7 @@
 {
   "name": "list-open-files",
   "version": "0.1.0",
-  "author": "jhq",
+  "author": "jhe",
   "publisher": "iqbis.de",
   "engines": {
     "vscode": "^1.79.0"
@@ -34,8 +34,16 @@
         "title": "ListOpen: List Open File Names"
       },
       {
+        "command": "list-open-files.close-diff-editors",
+        "title": "ListOpen: Close Diff Editors"
+      },
+      {
         "command": "list-open-files.reopen-files",
         "title": "ListOpen: Reopen Files"
+      },
+      {
+        "command": "list-open-files.debug-log-open-tabs",
+        "title": "ListOpen: Debug Log Open Tabs"
       }
     ]
   },

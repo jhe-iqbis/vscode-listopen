@@ -8,6 +8,7 @@ export class Logger {
 
   constructor() {
     this._outputChannel = vscode.window.createOutputChannel(LIST_OPEN_FILES_SCHEME, { log: true });
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     LOGGER = this;
   }
 

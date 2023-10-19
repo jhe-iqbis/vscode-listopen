@@ -3,12 +3,19 @@
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaVersion": 6,
+        "project": "./tsconfig.json",
         "sourceType": "module"
     },
     "plugins": [
         "@typescript-eslint"
     ],
+    "extends": [
+        "plugin:@typescript-eslint/recommended"
+    ],
     "rules": {
+        "@typescript-eslint/ban-ts-comment": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off",
+        "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/naming-convention": "warn",
         "@typescript-eslint/semi": "warn",
         "curly": "warn",
