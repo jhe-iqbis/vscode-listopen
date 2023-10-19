@@ -8,7 +8,9 @@ import {
 } from './constants';
 import { Logger } from './logger';
 import { ListOpenFilesProvider } from './provider';
+import { closeDiffEditors } from './functions/closeDiffEditors';
 import { reopenFiles } from './functions/reopenFiles';
+import { debugLogOpenTabs } from './functions/debugLogOpenTabs';
 
 let logger: Logger;
 
@@ -34,16 +36,22 @@ export function activate(context: vscode.ExtensionContext): void {
       vscode.workspace.onDidOpenTextDocument(updateProvidedDocuments),
       vscode.workspace.onDidCloseTextDocument(updateProvidedDocuments),
       vscode.commands.registerCommand('list-open-files.list-open-file-abspaths', () => {
-        openProvidedDocument(LIST_OPEN_FILE_ABSPATHS);
+        void openProvidedDocument(LIST_OPEN_FILE_ABSPATHS);
       }),
       vscode.commands.registerCommand('list-open-files.list-open-file-relpaths', () => {
-        openProvidedDocument(LIST_OPEN_FILE_RELPATHS);
+        void openProvidedDocument(LIST_OPEN_FILE_RELPATHS);
       }),
       vscode.commands.registerCommand('list-open-files.list-open-file-names', () => {
-        openProvidedDocument(LIST_OPEN_FILE_NAMES);
+        void openProvidedDocument(LIST_OPEN_FILE_NAMES);
+      }),
+      vscode.commands.registerCommand('list-open-files.close-diff-editors', () => {
+        void closeDiffEditors();
       }),
       vscode.commands.registerCommand('list-open-files.reopen-files', () => {
-        reopenFiles();
+        void reopenFiles();
+      }),
+      vscode.commands.registerCommand('list-open-files.debug-log-open-tabs', () => {
+        void debugLogOpenTabs();
       }),
     );
     logger.info('Extension activated.');
